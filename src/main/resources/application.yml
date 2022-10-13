@@ -1,0 +1,27 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/product
+    username: postgres
+    password: 123
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/product
+    username: postgres
+    password: 123
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+        show_sql: false
+        temp:
+          use_jdbc_metadata_defaults: false
+  liquibase:
+    url: jdbc:postgresql://localhost:5432/product
+    password: 123
+    user: postgres
+    change-log: classpath:/db.changelog/db.changelog.xml
+
+logging:
+  level:
+    org.springframework.data:
+      r2dbc: DEBUG

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="author">
+        <createTable tableName="store_types">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="type_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="author">
+        <createTable tableName="stores">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="type_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_stores_store_types"
+                             references="store_types(id)"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="author">
+        <createTable tableName="countries">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="author">
+        <createTable tableName="brands">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="country_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_brands_countries"
+                             references="countries(id)"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="author">
+        <createTable tableName="categories">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="parent_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_categories_parent_categories"
+                             references="categories(id)"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="author">
+        <createTable tableName="products">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="brand_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_products_brands"
+                             references="brands(id)"/>
+            </column>
+
+            <column name="category_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_products_categories"
+                             references="categories(id)"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="7" author="author">
+        <createTable tableName="providers">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="author">
+        <createTable tableName="deliveries">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="product_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_deliveries_products"
+                             references="products(id)"/>
+            </column>
+
+            <column name="delivery_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="product_count" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="price" type="double">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="provider_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_deliveries_providers"
+                             references="providers(id)"/>
+            </column>
+
+            <column name="store_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_deliveries_stores"
+                             references="stores(id)"/>
+            </column>
+
+            <column name="create_at" type="date">
+            </column>
+
+            <column name="update_at" type="date">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
