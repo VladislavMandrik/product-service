@@ -5,13 +5,13 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="1" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-store_types" author="author">
         <createTable tableName="store_types">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="type_name" type="varchar(100)">
+            <column name="type_name" type="varchar(100)" defaultValue="food">
                 <constraints nullable="false"/>
             </column>
 
@@ -23,7 +23,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-stores" author="author">
         <createTable tableName="stores">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
@@ -46,13 +46,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="3" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-countries" author="author">
         <createTable tableName="countries">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="name" type="varchar(100)">
+            <column name="name" type="varchar(100)" defaultValue="Belarus">
                 <constraints nullable="false"/>
             </column>
 
@@ -64,13 +64,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="4" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-brands" author="author">
         <createTable tableName="brands">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="name" type="varchar(100)">
+            <column name="name" type="varchar(100)" defaultValue="Communarka">
                 <constraints nullable="false"/>
             </column>
 
@@ -87,7 +87,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="5" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-categories" author="author">
         <createTable tableName="categories">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
@@ -110,7 +110,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="6" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-products" author="author">
         <createTable tableName="products">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
@@ -142,13 +142,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="7" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-providers" author="author">
         <createTable tableName="providers">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="name" type="varchar(100)">
+            <column name="name" type="varchar(100)" defaultValue="prov">
                 <constraints nullable="false"/>
             </column>
 
@@ -160,7 +160,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="8" author="author">
+    <changeSet id="14-10-2022-15-15-create-table-deliveries" author="author">
         <createTable tableName="deliveries">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
