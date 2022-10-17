@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.mapper.StoreTypeMapper;
 import com.example.demo.model.PageSupport;
+import com.example.demo.model.StoreType;
 import com.example.demo.model.StoreTypeDTO;
 import com.example.demo.repository.StoreTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -29,5 +31,31 @@ public class StoreTypeServiceImpl implements StoreTypeService {
                         .collect(Collectors.toList()),
                         page.getPageNumber(), page.getPageSize(), list.size()))
                 .switchIfEmpty(Mono.empty());
+    }
+
+    public Mono<StoreTypeDTO> getById(Long id) {
+        return storeTypeRepository.findById(id)
+                .map(storeTypeMapper::toDTO);
+    }
+
+    public Mono<StoreTypeDTO> addStoreType(StoreTypeDTO storeTypeDTO) {
+        StoreType storeType = storeTypeMapper.fromDTO(storeTypeDTO);
+        return storeTypeRepository.save(storeType)
+                .map(storeTypeMapper::toDTO);
+    }
+
+    public Mono<StoreTypeDTO> update(Long id, StoreTypeDTO storeTypeDTO) {
+        StoreType storeType = storeTypeMapper.fromDTO(storeTypeDTO);
+        return storeTypeRepository.save(storeType)
+                .map(storeTypeMapper::toDTO);
+    }
+
+    public Mono<ResponseEntity<Void>> delete(Long id) {
+        return storeTypeRepository.findById(id)
+                .flatMap(existingStoreType ->
+                        storeTypeRepository.delete(existingStoreType)
+                                .then(Mono.just(ResponseEntity.ok().<Void>build()))
+                )
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 }

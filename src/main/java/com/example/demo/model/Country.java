@@ -11,14 +11,14 @@ import javax.persistence.GenerationType;
 import java.sql.Date;
 
 @Data
-@Table("store_types")
+@Table("countries")
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreType {
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String typeName;
+    private String name;
     private Date createAt;
     private Date updateAt;
 }

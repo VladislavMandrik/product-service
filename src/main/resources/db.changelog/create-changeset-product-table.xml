@@ -11,7 +11,7 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="type_name" type="varchar(100)" defaultValue="food">
+            <column name="type_name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
 
@@ -52,7 +52,7 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="name" type="varchar(100)" defaultValue="Belarus">
+            <column name="country_name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
 
@@ -70,7 +70,7 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="name" type="varchar(100)" defaultValue="Communarka">
+            <column name="name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
 
@@ -148,7 +148,7 @@
                 <constraints primaryKey="true"/>
             </column>
 
-            <column name="name" type="varchar(100)" defaultValue="prov">
+            <column name="name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
 
