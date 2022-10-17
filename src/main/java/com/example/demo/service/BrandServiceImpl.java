@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.DoNotExistsException;
+import com.example.demo.exception.ExceptionMessage;
 import com.example.demo.mapper.BrandMapper;
 import com.example.demo.model.Brand;
 import com.example.demo.model.BrandDTO;
@@ -7,7 +9,6 @@ import com.example.demo.model.PageSupport;
 import com.example.demo.repository.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -44,19 +45,15 @@ public class BrandServiceImpl implements BrandService {
                 .map(brandMapper::toDTO);
     }
 
-    public Mono<BrandDTO> update(Long id, BrandDTO brandDTO) {
+    public Mono<BrandDTO> update(BrandDTO brandDTO) {
         Brand brand = brandMapper.fromDTO(brandDTO);
         return brandRepository.save(brand)
                 .map(brandMapper::toDTO);
     }
 
-    public Mono<ResponseEntity<Void>> delete(Long id) {
+    public Mono<Void> delete(Long id) {
         return brandRepository.findById(id)
-                .flatMap(existingBrand ->
-                        brandRepository.delete(existingBrand)
-                                .then(Mono.just(ResponseEntity.ok().<Void>build()))
-                )
-                .defaultIfEmpty(ResponseEntity.notFound().build());
-    }
-}
+                .switchIfEmpty(Mono.error(new DoNotExistsException(ExceptionMessage.DO_NOT_EXIST)))
+                .flatMap(brandRepository::delete);
+}}
 

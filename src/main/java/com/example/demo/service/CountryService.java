@@ -13,7 +13,7 @@ public interface CountryService {
 
     Mono<CountryDTO> addCountry(CountryDTO countryDTO);
 
-    Mono<CountryDTO> update(Long id, CountryDTO countryDTO);
+    Mono<CountryDTO> update(CountryDTO countryDTO);
 
-    Mono<ResponseEntity<Void>> delete(Long id);
+    Mono<Void> delete(Long id);
 }

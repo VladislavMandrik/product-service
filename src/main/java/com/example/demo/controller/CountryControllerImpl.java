@@ -30,7 +30,7 @@ public class CountryControllerImpl implements CountryController{
     }
 
     public Mono<CountryDTO> updateCountry(Long id, CountryDTO countryDTO) {
-        return countryService.update(id, countryDTO).log();
+        return countryService.update(countryDTO).log();
     }
 
     public Mono<?> deleteCountry(Long id) {

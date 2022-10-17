@@ -13,7 +13,7 @@ public interface StoreTypeService {
 
     Mono<StoreTypeDTO> addStoreType(StoreTypeDTO storeTypeDTO);
 
-    Mono<StoreTypeDTO> update(Long id, StoreTypeDTO storeTypeDTO);
+    Mono<StoreTypeDTO> update(StoreTypeDTO storeTypeDTO);
 
-    Mono<ResponseEntity<Void>> delete(Long id);
+    Mono<Void> delete(Long id);
 }

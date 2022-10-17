@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.DoNotExistsException;
+import com.example.demo.exception.ExceptionMessage;
 import com.example.demo.mapper.StoreTypeMapper;
 import com.example.demo.model.PageSupport;
 import com.example.demo.model.StoreType;
@@ -44,18 +46,15 @@ public class StoreTypeServiceImpl implements StoreTypeService {
                 .map(storeTypeMapper::toDTO);
     }
 
-    public Mono<StoreTypeDTO> update(Long id, StoreTypeDTO storeTypeDTO) {
+    public Mono<StoreTypeDTO> update(StoreTypeDTO storeTypeDTO) {
         StoreType storeType = storeTypeMapper.fromDTO(storeTypeDTO);
         return storeTypeRepository.save(storeType)
                 .map(storeTypeMapper::toDTO);
     }
 
-    public Mono<ResponseEntity<Void>> delete(Long id) {
+    public Mono<Void> delete(Long id) {
         return storeTypeRepository.findById(id)
-                .flatMap(existingStoreType ->
-                        storeTypeRepository.delete(existingStoreType)
-                                .then(Mono.just(ResponseEntity.ok().<Void>build()))
-                )
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+                .switchIfEmpty(Mono.error(new DoNotExistsException(ExceptionMessage.DO_NOT_EXIST)))
+                .flatMap(storeTypeRepository::delete);
     }
 }

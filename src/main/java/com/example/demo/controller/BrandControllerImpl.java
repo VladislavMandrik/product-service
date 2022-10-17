@@ -29,8 +29,8 @@ public class BrandControllerImpl implements BrandController {
         return brandService.addBrand(brandDTO).log();
     }
 
-    public Mono<BrandDTO> updateBrand(Long id, BrandDTO brandDTO) {
-        return brandService.update(id, brandDTO).log();
+    public Mono<BrandDTO> updateBrand(BrandDTO brandDTO) {
+        return brandService.update(brandDTO).log();
     }
 
     public Mono<?> deleteBrand(Long id) {

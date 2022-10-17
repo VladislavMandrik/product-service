@@ -14,7 +14,7 @@ public interface BrandService {
 
     Mono<BrandDTO> addBrand(BrandDTO brandDTO);
 
-    Mono<BrandDTO> update(Long id, BrandDTO brandDTO);
+    Mono<BrandDTO> update(BrandDTO brandDTO);
 
-    Mono<ResponseEntity<Void>> delete(Long id);
+    Mono<Void> delete(Long id);
 }

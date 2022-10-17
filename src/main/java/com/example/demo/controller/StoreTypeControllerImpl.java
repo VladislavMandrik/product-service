@@ -30,7 +30,7 @@ public class StoreTypeControllerImpl implements StoreTypeController {
     }
 
     public Mono<StoreTypeDTO> updateStoreType(Long id, StoreTypeDTO storeTypeDTO) {
-        return storeTypeService.update(id, storeTypeDTO).log();
+        return storeTypeService.update(storeTypeDTO).log();
     }
 
     public Mono<?> deleteStoreType(Long id) {

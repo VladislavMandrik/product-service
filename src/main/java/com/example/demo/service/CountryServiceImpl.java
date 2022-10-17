@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.DoNotExistsException;
+import com.example.demo.exception.ExceptionMessage;
 import com.example.demo.mapper.CountryMapper;
 import com.example.demo.model.Country;
 import com.example.demo.model.CountryDTO;
@@ -44,19 +46,16 @@ public class CountryServiceImpl implements CountryService {
                 .map(countryMapper::toDTO);
     }
 
-    public Mono<CountryDTO> update(Long id, CountryDTO countryDTO) {
+    public Mono<CountryDTO> update(CountryDTO countryDTO) {
         Country country = countryMapper.fromDTO(countryDTO);
         return countryRepository.save(country)
                 .map(countryMapper::toDTO);
     }
 
-    public Mono<ResponseEntity<Void>> delete(Long id) {
+    public Mono<Void> delete(Long id) {
         return countryRepository.findById(id)
-                .flatMap(existingCountry ->
-                        countryRepository.delete(existingCountry)
-                                .then(Mono.just(ResponseEntity.ok().<Void>build()))
-                )
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+                .switchIfEmpty(Mono.error(new DoNotExistsException(ExceptionMessage.DO_NOT_EXIST)))
+                .flatMap(countryRepository::delete);
     }
 }
 

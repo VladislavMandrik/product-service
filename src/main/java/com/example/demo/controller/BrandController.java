@@ -23,8 +23,7 @@ public interface BrandController {
     Mono<BrandDTO> createBrand(@RequestBody BrandDTO brandDTO);
 
     @PutMapping("/{id}")
-    Mono<BrandDTO> updateBrand(@PathVariable(value = "id") Long id,
-                               @RequestBody BrandDTO brandDTO);
+    Mono<BrandDTO> updateBrand(@RequestBody BrandDTO brandDTO);
 
     @DeleteMapping("/{id}")
     Mono<?> deleteBrand(@PathVariable(value = "id") Long id);
