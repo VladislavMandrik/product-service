@@ -9,10 +9,10 @@ public class ProductDTO {
     private Long id;
     private String name;
     private String description;
-    private String brand;
-    private Long brandId;
-    private String category;
-    private Long categoryId;
+    private Brand brand;
+//    private Long brandId;
+    private Category category;
+//    private Long categoryId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

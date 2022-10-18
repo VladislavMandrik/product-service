@@ -22,18 +22,18 @@ public class ProductControllerImpl implements ProductController {
     }
 
     public Mono<ProductDTO> getProductById(Long id) {
-        return productService.getById(id).log();
+        return productService.getById(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<ProductDTO> createProduct(ProductDTO productDTO) {
-        return productService.addProduct(productDTO).log();
+        return productService.addProduct(productDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<ProductDTO> updateProduct(ProductDTO productDTO) {
-        return productService.update(productDTO).log();
+        return productService.update(productDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<?> deleteProduct(Long id) {
-        return productService.delete(id).log();
+    public Mono<Void> deleteProduct(Long id) {
+        return productService.delete(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 }

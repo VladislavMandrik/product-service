@@ -22,18 +22,18 @@ public class StoreTypeControllerImpl implements StoreTypeController {
     }
 
     public Mono<StoreTypeDTO> getStoreTypeById(Long id) {
-        return storeTypeService.getById(id).log();
+        return storeTypeService.getById(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<StoreTypeDTO> createStoreType(StoreTypeDTO storeTypeDTO) {
-        return storeTypeService.addStoreType(storeTypeDTO).log();
+        return storeTypeService.addStoreType(storeTypeDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<StoreTypeDTO> updateStoreType(Long id, StoreTypeDTO storeTypeDTO) {
-        return storeTypeService.update(storeTypeDTO).log();
+        return storeTypeService.update(storeTypeDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<?> deleteStoreType(Long id) {
-        return storeTypeService.delete(id).log();
+    public Mono<Void> deleteStoreType(Long id) {
+        return storeTypeService.delete(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 }

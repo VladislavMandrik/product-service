@@ -22,18 +22,18 @@ public class CountryControllerImpl implements CountryController{
     }
 
     public Mono<CountryDTO> getCountryById(Long id) {
-        return countryService.getById(id).log();
+        return countryService.getById(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<CountryDTO> createCountry(CountryDTO countryDTO) {
-        return countryService.addCountry(countryDTO).log();
+        return countryService.addCountry(countryDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<CountryDTO> updateCountry(Long id, CountryDTO countryDTO) {
-        return countryService.update(countryDTO).log();
+        return countryService.update(countryDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<?> deleteCountry(Long id) {
-        return countryService.delete(id).log();
+    public Mono<Void> deleteCountry(Long id) {
+        return countryService.delete(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 }

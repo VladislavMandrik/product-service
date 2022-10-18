@@ -6,7 +6,7 @@
 		https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="14-10-2022-15-15-create-table-store-types" author="author">
-        <createTable tableName="store-types">
+        <createTable tableName="store_types">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
@@ -15,11 +15,10 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>
@@ -35,15 +34,14 @@
             </column>
 
             <column name="type_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_stores_store-types"
-                             references="store-types(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_stores_store_types"
+                             references="store_types(id)"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>
@@ -58,11 +56,10 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>
@@ -82,11 +79,10 @@
                              references="countries(id)"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>
@@ -106,11 +102,10 @@
                              references="categories(id)"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>
@@ -138,11 +133,10 @@
                              references="categories(id)"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>
@@ -157,11 +151,10 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>
@@ -199,11 +192,10 @@
                              references="stores(id)"/>
             </column>
 
-            <column name="created_at" type="Timestamp">
-                <constraints nullable="false"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 
-            <column name="updated_at" type="Timestamp">
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
             </column>
         </createTable>
     </changeSet>

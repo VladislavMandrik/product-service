@@ -27,7 +27,7 @@ public interface StoreTypeController {
                                        @RequestBody StoreTypeDTO storeTypeDTO);
 
     @DeleteMapping("/{id}")
-    Mono<?> deleteStoreType(@PathVariable(value = "id") Long id);
+    Mono<Void> deleteStoreType(@PathVariable(value = "id") Long id);
 }
 
 

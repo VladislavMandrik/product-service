@@ -14,17 +14,11 @@ import java.sql.Timestamp;
 @Table("products")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String description;
-    private Brand brand;
-//    private Long brandId;
-    private Category category;
-//    private Long categoryId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
-

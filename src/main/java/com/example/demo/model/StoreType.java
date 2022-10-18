@@ -8,10 +8,10 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
-@Table("store-types")
+@Table("store_types")
 @NoArgsConstructor
 @AllArgsConstructor
 public class StoreType {
@@ -19,6 +19,6 @@ public class StoreType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String typeName;
-    private Date createAt;
-    private Date updateAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

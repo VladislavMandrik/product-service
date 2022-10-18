@@ -22,18 +22,18 @@ public class BrandControllerImpl implements BrandController {
     }
 
     public Mono<BrandDTO> getBrandById(Long id) {
-        return brandService.getById(id).log();
+        return brandService.getById(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<BrandDTO> createBrand(BrandDTO brandDTO) {
-        return brandService.addBrand(brandDTO).log();
+        return brandService.addBrand(brandDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     public Mono<BrandDTO> updateBrand(BrandDTO brandDTO) {
-        return brandService.update(brandDTO).log();
+        return brandService.update(brandDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<?> deleteBrand(Long id) {
-        return brandService.delete(id).log();
+    public Mono<Void> deleteBrand(Long id) {
+        return brandService.delete(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 }

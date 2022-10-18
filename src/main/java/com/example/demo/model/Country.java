@@ -8,7 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Table("countries")
@@ -19,6 +19,6 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Date createAt;
-    private Date updateAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

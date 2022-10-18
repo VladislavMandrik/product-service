@@ -26,5 +26,5 @@ public interface ProductController {
     Mono<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO);
 
     @DeleteMapping("/{id}")
-    Mono<?> deleteProduct(@PathVariable(value = "id") Long id);
+    Mono<Void> deleteProduct(@PathVariable(value = "id") Long id);
 }

@@ -3,13 +3,11 @@ package com.example.demo.model;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Data
-public class StoreTypeDTO {
+public class CategoryDTO {
     private Long id;
-    private String typeName;
+    private String name;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
-

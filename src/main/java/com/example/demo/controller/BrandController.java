@@ -26,5 +26,5 @@ public interface BrandController {
     Mono<BrandDTO> updateBrand(@RequestBody BrandDTO brandDTO);
 
     @DeleteMapping("/{id}")
-    Mono<?> deleteBrand(@PathVariable(value = "id") Long id);
+    Mono<Void> deleteBrand(@PathVariable(value = "id") Long id);
 }

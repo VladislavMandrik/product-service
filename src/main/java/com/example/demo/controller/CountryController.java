@@ -27,5 +27,5 @@ public interface CountryController {
                                    @RequestBody CountryDTO countryDTO);
 
     @DeleteMapping("/{id}")
-    Mono<?> deleteCountry(@PathVariable(value = "id") Long id);
+    Mono<Void> deleteCountry(@PathVariable(value = "id") Long id);
 }
