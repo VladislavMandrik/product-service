@@ -55,5 +55,6 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.findById(id)
                 .switchIfEmpty(Mono.error(new DoNotExistsException(ExceptionMessage.DO_NOT_EXIST)))
                 .flatMap(brandRepository::delete);
-}}
+    }
+}
 

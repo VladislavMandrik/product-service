@@ -5,8 +5,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="14-10-2022-15-15-create-table-store_types" author="author">
-        <createTable tableName="store_types">
+    <changeSet id="14-10-2022-15-15-create-table-store-types" author="author">
+        <createTable tableName="store-types">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
@@ -15,10 +15,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>
@@ -34,14 +35,15 @@
             </column>
 
             <column name="type_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_stores_store_types"
-                             references="store_types(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_stores_store-types"
+                             references="store-types(id)"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>
@@ -56,10 +58,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>
@@ -79,10 +82,11 @@
                              references="countries(id)"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>
@@ -98,14 +102,15 @@
             </column>
 
             <column name="parent_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_categories_parent_categories"
+                <constraints foreignKeyName="fk_categories_parent_categories"
                              references="categories(id)"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>
@@ -121,7 +126,6 @@
             </column>
 
             <column name="description" type="varchar(100)">
-                <constraints nullable="false"/>
             </column>
 
             <column name="brand_id" type="int">
@@ -134,10 +138,11 @@
                              references="categories(id)"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>
@@ -152,10 +157,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>
@@ -193,10 +199,11 @@
                              references="stores(id)"/>
             </column>
 
-            <column name="create_at" type="date">
+            <column name="created_at" type="Timestamp">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="update_at" type="date">
+            <column name="updated_at" type="Timestamp">
             </column>
         </createTable>
     </changeSet>

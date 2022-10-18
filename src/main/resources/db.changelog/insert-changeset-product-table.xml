@@ -5,17 +5,17 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                      https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="16-10-2022-22-31-insert-table-store_types" author="author" >
-        <insert tableName="store_types">
+    <changeSet id="16-10-2022-22-31-insert-table-store-types" author="author" >
+        <insert tableName="store-types">
             <column name="type_name" value="food"/>
-            <column name="create_at" value="2022-10-16"/>
+            <column name="created_at" value="2022-10-16 12:05:06"/>
         </insert>
     </changeSet>
 
     <changeSet id="16-10-2022-22-52-insert-table-countries" author="author" >
         <insert tableName="countries">
             <column name="country_name" value="Belarus"/>
-            <column name="create_at" value="2022-10-16"/>
+            <column name="created_at" value="2022-10-16 04:20:05"/>
         </insert>
     </changeSet>
 
@@ -23,14 +23,21 @@
         <insert tableName="brands">
             <column name="name" value="Communarka"/>
             <column name="country_id" value="1"/>
-            <column name="create_at" value="2022-10-16"/>
+            <column name="created_at" value="2022-10-16 04:02:06"/>
         </insert>
     </changeSet>
 
     <changeSet id="16-10-2022-22-52-insert-table-providers" author="author" >
         <insert tableName="providers">
             <column name="name" value="prov"/>
-            <column name="create_at" value="2022-10-16"/>
+            <column name="created_at" value="2022-10-16 04:07:06"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="17-10-2022-23-49-insert-table-categories" author="author" >
+        <insert tableName="categories">
+            <column name="name" value="eat"/>
+            <column name="created_at" value="2022-10-17 06:05:06"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
