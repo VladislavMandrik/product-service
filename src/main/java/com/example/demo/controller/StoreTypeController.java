@@ -9,25 +9,19 @@ import static com.example.demo.model.PageSupport.DEFAULT_PAGE_SIZE;
 import static com.example.demo.model.PageSupport.FIRST_PAGE_NUM;
 
 @RequestMapping("/type")
-@RestController
 public interface StoreTypeController {
 
-    @GetMapping
     Mono<PageSupport<StoreTypeDTO>> getAll(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
                                            @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size);
 
-    @GetMapping("/{id}")
-    Mono<StoreTypeDTO> getStoreTypeById(@PathVariable(value = "id") Long id);
+    Mono<StoreTypeDTO> getStoreTypeById(Long id);
 
-    @PostMapping
-    Mono<StoreTypeDTO> createStoreType(@RequestBody StoreTypeDTO storeTypeDTO);
+    Mono<StoreTypeDTO> createStoreType(StoreTypeDTO storeTypeDTO);
 
-    @PutMapping("/{id}")
-    Mono<StoreTypeDTO> updateStoreType(@PathVariable(value = "id") Long id,
-                                       @RequestBody StoreTypeDTO storeTypeDTO);
+    Mono<StoreTypeDTO> updateStoreType(Long id,
+                                       StoreTypeDTO storeTypeDTO);
 
-    @DeleteMapping("/{id}")
-    Mono<Void> deleteStoreType(@PathVariable(value = "id") Long id);
+    Mono<Void> deleteStoreType(Long id);
 }
 
 

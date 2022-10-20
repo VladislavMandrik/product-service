@@ -10,13 +10,13 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface ProductRepository extends ReactiveCrudRepository<Product, Long> {
     @Query(value = "select products.id, products.name, products.description, " +
-            "brands.name AS brand, categories.name AS category, products.created_at, products.updated_at " +
+            "brands.name AS brand_name, categories.name AS category_name, products.created_at, products.updated_at " +
             "from products join brands on brands.id = products.brand_id " +
             "join categories on categories.id = products.category_id")
     Flux<Product> findAll();
 
-    @Query(value = "select products.id, products.name, products.description, brands.name AS brand, " +
-            "categories.name AS category, products.created_at, products.updated_at from products " +
+    @Query(value = "select products.id, products.name, products.description, brands.name AS brand_name, " +
+            "categories.name AS category_name, products.created_at, products.updated_at from products " +
             "join brands on brands.id = products.brand_id join categories" +
             " on categories.id = products.category_id where brands.id = :id")
     Mono<Product> findProduct(Long id);

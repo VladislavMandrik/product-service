@@ -6,34 +6,39 @@ import com.example.demo.service.StoreTypeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 @RestController
 public class StoreTypeControllerImpl implements StoreTypeController {
 
     private final StoreTypeServiceImpl storeTypeService;
 
+    @GetMapping
     public Mono<PageSupport<StoreTypeDTO>> getAll(int page, int size) {
         return storeTypeService.getAll(PageRequest.of(page, size)).log()
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<StoreTypeDTO> getStoreTypeById(Long id) {
+    @GetMapping("/{id}")
+    public Mono<StoreTypeDTO> getStoreTypeById(@PathVariable(value = "id") Long id) {
         return storeTypeService.getById(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<StoreTypeDTO> createStoreType(StoreTypeDTO storeTypeDTO) {
+    @PostMapping
+    public Mono<StoreTypeDTO> createStoreType(@RequestBody StoreTypeDTO storeTypeDTO) {
         return storeTypeService.addStoreType(storeTypeDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<StoreTypeDTO> updateStoreType(Long id, StoreTypeDTO storeTypeDTO) {
+    @PutMapping("/{id}")
+    public Mono<StoreTypeDTO> updateStoreType(@PathVariable(value = "id") Long id, @RequestBody StoreTypeDTO storeTypeDTO) {
         return storeTypeService.update(storeTypeDTO).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    public Mono<Void> deleteStoreType(Long id) {
+    @DeleteMapping("/{id}")
+    public Mono<Void> deleteStoreType(@PathVariable(value = "id") Long id) {
         return storeTypeService.delete(id).log().subscribeOn(Schedulers.boundedElastic());
     }
 }

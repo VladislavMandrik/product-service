@@ -35,7 +35,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     public Mono<BrandDTO> getById(Long id) {
-        return brandRepository.findBrand(id)
+        return brandRepository.findById(id)
                 .map(brandMapper::toDTO);
     }
 

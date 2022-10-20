@@ -9,11 +9,11 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface BrandRepository extends ReactiveCrudRepository<Brand, Long> {
-    @Query(value = "select brands.id, brands.name, countries.country_name, brands.create_at," +
-            " brands.update_at from brands join countries on countries.id = brands.country_id")
-    Flux<Brand> findAll();
-
-    @Query(value = "select brands.id, brands.name, countries.country_name, brands.create_at," +
-            " brands.update_at from brands join countries on countries.id = brands.country_id where brands.id = :id")
-    Mono<Brand> findBrand(Long id);
+//    @Query(value = "select brands.id, brands.name, countries.country_name, brands.create_at," +
+//            " brands.update_at from brands join countries on countries.id = brands.country_id")
+//    Flux<Brand> findAll();
+//
+//    @Query(value = "select brands.id, brands.name, countries.country_name, brands.create_at," +
+//            " brands.update_at from brands join countries on countries.id = brands.country_id where brands.id = :id")
+//    Mono<Brand> findBrand(Long id);
 }

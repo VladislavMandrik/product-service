@@ -9,22 +9,15 @@ import static com.example.demo.model.PageSupport.DEFAULT_PAGE_SIZE;
 import static com.example.demo.model.PageSupport.FIRST_PAGE_NUM;
 
 @RequestMapping("/brand")
-@RestController
 public interface BrandController {
 
-    @GetMapping
     Mono<PageSupport<BrandDTO>> getAll(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
                                        @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size);
+    Mono<BrandDTO> getBrandById(Long id);
 
-    @GetMapping("/{id}")
-    Mono<BrandDTO> getBrandById(@PathVariable(value = "id") Long id);
+    Mono<BrandDTO> createBrand(BrandDTO brandDTO);
 
-    @PostMapping
-    Mono<BrandDTO> createBrand(@RequestBody BrandDTO brandDTO);
+    Mono<BrandDTO> updateBrand(BrandDTO brandDTO);
 
-    @PutMapping("/{id}")
-    Mono<BrandDTO> updateBrand(@RequestBody BrandDTO brandDTO);
-
-    @DeleteMapping("/{id}")
-    Mono<Void> deleteBrand(@PathVariable(value = "id") Long id);
+    Mono<Void> deleteBrand(Long id);
 }
