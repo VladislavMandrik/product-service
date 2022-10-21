@@ -4,6 +4,7 @@ import com.example.demo.exception.DoNotExistsException;
 import com.example.demo.exception.ExceptionMessage;
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.*;
+import com.example.demo.repository.BrandRepository;
 import com.example.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final BrandRepository brandRepository;
     private final ProductMapper productMapper;
 
     public Mono<PageSupport<ProductDTO>> getAll(Pageable page) {
@@ -32,21 +34,26 @@ public class ProductServiceImpl implements ProductService {
                 .switchIfEmpty(Mono.empty());
     }
 
-    public Mono<ProductDTO> getById(Long id) {
-        return productRepository.findProduct(id)
-                .map(productMapper::toDTO);
+    public Mono<ResponseProduct> getById(Long id) {
+        Mono<Brand> byId = brandRepository.findById(1L);
+        return null;
+//                productRepository.findById(id)
+//                .map(productMapper::toDTO)
+//                .map((ProductDTO productDTO) -> productMapper.toResponse(productDTO, byId.block()));
     }
 
     public Mono<ProductDTO> addProduct(ProductDTO productDTO) {
-        Product product = productMapper.fromDTO(productDTO);
-        return productRepository.save(product)
-                .map(productMapper::toDTO);
+//        Product product = productMapper.fromDTO(productDTO);
+        return null;
+//                productRepository.save(product)
+//                .map(productMapper::toDTO);
     }
 
     public Mono<ProductDTO> update(ProductDTO productDTO) {
-        Product product = productMapper.fromDTO(productDTO);
-        return productRepository.save(product)
-                .map(productMapper::toDTO);
+//        Product product = productMapper.fromDTO(productDTO);
+        return null;
+//                productRepository.save(product)
+//                .map(productMapper::toDTO);
     }
 
     public Mono<Void> delete(Long id) {

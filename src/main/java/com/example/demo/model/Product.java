@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 
 @Data
 @Table("products")
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Product {
     @Id
@@ -22,9 +22,9 @@ public class Product {
     private String name;
     private String description;
     private Long brandId;
-    private String brandName;
+//    private String brandName;
     private Long categoryId;
-    private String categoryName;
+//    private String categoryName;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
