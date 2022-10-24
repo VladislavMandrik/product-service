@@ -1,0 +1,25 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.PageSupport;
+import com.example.demo.model.ProviderDTO;
+import com.example.demo.model.StoreDTO;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Mono;
+
+import static com.example.demo.model.PageSupport.DEFAULT_PAGE_SIZE;
+import static com.example.demo.model.PageSupport.FIRST_PAGE_NUM;
+
+@RequestMapping("/store")
+public interface StoreController {
+
+
+    Mono<PageSupport<StoreDTO>> getAll(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
+                                       @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size);
+
+    Mono<StoreDTO> getStoreById(Long id);
+
+    Mono<StoreDTO> createOrUpdateStore(StoreDTO storeDTO);
+
+    Mono<Void> deleteStore(Long id);
+}

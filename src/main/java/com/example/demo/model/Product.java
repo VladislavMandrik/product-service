@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import java.sql.Timestamp;
 
 @Data
 @Table("products")
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class Product {
     @Id
@@ -22,9 +21,7 @@ public class Product {
     private String name;
     private String description;
     private Long brandId;
-//    private String brandName;
     private Long categoryId;
-//    private String categoryName;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

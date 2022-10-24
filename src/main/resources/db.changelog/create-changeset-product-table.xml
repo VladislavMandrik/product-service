@@ -23,8 +23,8 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="14-10-2022-15-15-create-table-stores" author="author">
-        <createTable tableName="stores">
+    <changeSet id="14-10-2022-15-15-create-table-providers" author="author">
+        <createTable tableName="providers">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
@@ -33,9 +33,27 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="type_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_stores_store_types"
-                             references="store_types(id)"/>
+            <column name="created_at" type="Timestamp" defaultValue="now()">
+            </column>
+
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="14-10-2022-15-15-create-table-categories" author="author">
+        <createTable tableName="categories">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="parent_id" type="int">
+                <constraints foreignKeyName="fk_categories_parent_categories"
+                             references="categories(id)"/>
             </column>
 
             <column name="created_at" type="Timestamp" defaultValue="now()">
@@ -87,29 +105,6 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="14-10-2022-15-15-create-table-categories" author="author">
-        <createTable tableName="categories">
-            <column autoIncrement="true" name="id" type="bigint">
-                <constraints primaryKey="true"/>
-            </column>
-
-            <column name="name" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="parent_id" type="int">
-                <constraints foreignKeyName="fk_categories_parent_categories"
-                             references="categories(id)"/>
-            </column>
-
-            <column name="created_at" type="Timestamp" defaultValue="now()">
-            </column>
-
-            <column name="updated_at" type="Timestamp" defaultValue="now()">
-            </column>
-        </createTable>
-    </changeSet>
-
     <changeSet id="14-10-2022-15-15-create-table-products" author="author">
         <createTable tableName="products">
             <column autoIncrement="true" name="id" type="bigint">
@@ -141,24 +136,6 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="14-10-2022-15-15-create-table-providers" author="author">
-        <createTable tableName="providers">
-            <column autoIncrement="true" name="id" type="bigint">
-                <constraints primaryKey="true"/>
-            </column>
-
-            <column name="name" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="created_at" type="Timestamp" defaultValue="now()">
-            </column>
-
-            <column name="updated_at" type="Timestamp" defaultValue="now()">
-            </column>
-        </createTable>
-    </changeSet>
-
     <changeSet id="14-10-2022-15-15-create-table-deliveries" author="author">
         <createTable tableName="deliveries">
             <column autoIncrement="true" name="id" type="bigint">
@@ -170,7 +147,7 @@
                              references="products(id)"/>
             </column>
 
-            <column name="delivery_date" type="date">
+            <column name="delivery_date" type="Timestamp">
                 <constraints nullable="false"/>
             </column>
 
@@ -186,10 +163,36 @@
                 <constraints nullable="false" foreignKeyName="fk_deliveries_providers"
                              references="providers(id)"/>
             </column>
+        </createTable>
+    </changeSet>
 
-            <column name="store_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_deliveries_stores"
-                             references="stores(id)"/>
+    <changeSet id="14-10-2022-15-15-create-table-stores" author="author">
+        <createTable tableName="stores">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="type_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_stores_store_types"
+                             references="store_types(id)"/>
+            </column>
+
+            <column name="delivery_id" type="int">
+                <constraints foreignKeyName="fk_stores_deliveries"
+                             references="deliveries(id)"/>
+            </column>
+
+            <column name="product_id" type="int">
+                <constraints foreignKeyName="fk_stores_products"
+                             references="products(id)"/>
+            </column>
+
+            <column name="products_count" type="int" defaultValue="0">
+                <constraints nullable="false"/>
             </column>
 
             <column name="created_at" type="Timestamp" defaultValue="now()">

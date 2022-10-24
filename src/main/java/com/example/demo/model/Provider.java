@@ -11,10 +11,10 @@ import javax.persistence.GenerationType;
 import java.sql.Timestamp;
 
 @Data
-@Table("categories")
+@Table("providers")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

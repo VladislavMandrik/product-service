@@ -11,14 +11,19 @@ import javax.persistence.GenerationType;
 import java.sql.Timestamp;
 
 @Data
-@Table("categories")
+@Table("deliveries")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private Long productId;
+    private Timestamp deliveryDate;
+    private Integer productCount;
+    private Double price;
+    private Long providerId;
+    private Long storeId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
