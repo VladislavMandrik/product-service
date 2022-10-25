@@ -9,7 +9,6 @@ import com.example.demo.model.StoreTypeDTO;
 import com.example.demo.repository.StoreTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 

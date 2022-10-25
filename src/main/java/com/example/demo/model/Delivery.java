@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @Table("deliveries")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,3 +29,4 @@ public class Delivery {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }
+

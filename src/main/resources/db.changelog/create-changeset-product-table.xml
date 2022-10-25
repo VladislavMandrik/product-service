@@ -181,20 +181,6 @@
                              references="store_types(id)"/>
             </column>
 
-            <column name="delivery_id" type="int">
-                <constraints foreignKeyName="fk_stores_deliveries"
-                             references="deliveries(id)"/>
-            </column>
-
-            <column name="product_id" type="int">
-                <constraints foreignKeyName="fk_stores_products"
-                             references="products(id)"/>
-            </column>
-
-            <column name="products_count" type="int" defaultValue="0">
-                <constraints nullable="false"/>
-            </column>
-
             <column name="created_at" type="Timestamp" defaultValue="now()">
             </column>
 

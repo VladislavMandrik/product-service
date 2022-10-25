@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.PageSupport;
-import com.example.demo.model.ProviderDTO;
 import com.example.demo.model.StoreDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.BrandDTO;
 import com.example.demo.model.CategoryDTO;
 import com.example.demo.model.PageSupport;
-import com.example.demo.service.BrandServiceImpl;
 import com.example.demo.service.CategoryServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

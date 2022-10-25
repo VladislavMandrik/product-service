@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.model.BrandDTO;
 import com.example.demo.model.PageSupport;
 import com.example.demo.model.ProviderDTO;
 import org.springframework.data.domain.Pageable;

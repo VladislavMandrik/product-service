@@ -66,21 +66,37 @@ public class DeliveryServiceImpl implements DeliveryService {
                                 ));
     }
 
+    public Mono<ResponseRemains> getRemainsByStoreIdAndProductId(RequestRemains requestRemains) {
+        return deliveryRepository.findRemainsByStoreIdAndProductId(requestRemains.getStoreId(),
+                        requestRemains.getProductId())
+                .publishOn(Schedulers.boundedElastic())
+                .map(result -> ResponseRemains.builder()
+                        .storeDTO(storeRepository.findById(requestRemains.getStoreId())
+                                .map(storeMapper::toDTO).block())
+                        .productDTO(productRepository.findById(requestRemains.getProductId())
+                                .map(productMapper::toDTO).block())
+                        .productCount(result)
+                        .build());
+    }
+
+
     public Mono<DeliveryDTO> addOrUpdateDelivery(RequestDelivery requestDelivery) {
         DeliveryDTO deliveryDTO = requestDelivery.getDeliveryDTO();
         ProductDTO productDTO = requestDelivery.getProductDTO();
         Delivery delivery = deliveryMapper.fromDTO(deliveryDTO);
         Product product = productMapper.fromDTO(productDTO);
 
-        if (productRepository.findByName(product.getName()) == null) {
-            productRepository.save(product).subscribe();
-        }
-
         return productRepository.findByName(product.getName())
-                .switchIfEmpty(productRepository.save(product))
-                .flatMap(deliveryRepository.save(delivery))
+                .switchIfEmpty(Mono.defer(() -> productRepository.save(product)))
+                .flatMap(orderedProduct -> deliveryRepository.save(Delivery.builder()
+                        .productId(orderedProduct.getId())
+                        .deliveryDate(delivery.getDeliveryDate())
+                        .productCount(delivery.getProductCount())
+                        .price(delivery.getPrice())
+                        .providerId(delivery.getProviderId())
+                        .storeId(delivery.getStoreId())
+                        .build()))
                 .map(deliveryMapper::toDTO);
-
     }
 
     public Mono<Void> delete(Long id) {

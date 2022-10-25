@@ -55,8 +55,6 @@
         <insert tableName="stores">
             <column name="name" value="PRODUCTS"/>
             <column name="type_id" value="1"/>
-            <column name="delivery_id" value="null"/>
-            <column name="product_id" value="1"/>
             <column name="created_at" value="now()"/>
         </insert>
     </changeSet>

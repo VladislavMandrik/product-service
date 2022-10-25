@@ -10,6 +10,8 @@ public interface DeliveryService {
 
     Mono<ResponseDelivery> getById(Long id);
 
+    Mono<ResponseRemains> getRemainsByStoreIdAndProductId(RequestRemains requestRemains);
+
     Mono<DeliveryDTO> addOrUpdateDelivery(RequestDelivery requestDelivery);
 
     Mono<Void> delete(Long id);

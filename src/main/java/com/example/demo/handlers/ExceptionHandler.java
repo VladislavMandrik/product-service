@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @ControllerAdvice
 public class ExceptionHandler {

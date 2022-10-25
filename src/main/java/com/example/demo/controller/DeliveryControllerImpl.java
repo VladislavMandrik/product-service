@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.*;
 import com.example.demo.service.DeliveryServiceImpl;
-import com.example.demo.service.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +23,11 @@ public class DeliveryControllerImpl implements DeliveryController {
     @GetMapping("/{id}")
     public Mono<ResponseDelivery> getDeliveryById(@PathVariable(value = "id") Long id) {
         return deliveryService.getById(id).log().subscribeOn(Schedulers.boundedElastic());
+    }
+
+    @GetMapping("/remains")
+    public Mono<ResponseRemains> getRemainsByProductId(@RequestBody RequestRemains requestRemains) {
+        return deliveryService.getRemainsByStoreIdAndProductId(requestRemains).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     @PostMapping

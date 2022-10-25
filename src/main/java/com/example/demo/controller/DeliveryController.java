@@ -16,6 +16,7 @@ public interface DeliveryController {
                                                @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size);
 
     Mono<ResponseDelivery> getDeliveryById(Long id);
+    Mono<ResponseRemains> getRemainsByProductId(RequestRemains requestRemains);
 
     Mono<DeliveryDTO> createOrUpdateDelivery(RequestDelivery requestDelivery);
 

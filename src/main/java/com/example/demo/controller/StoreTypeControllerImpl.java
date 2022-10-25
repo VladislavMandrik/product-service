@@ -4,7 +4,6 @@ import com.example.demo.model.PageSupport;
 import com.example.demo.model.StoreTypeDTO;
 import com.example.demo.service.StoreTypeServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
