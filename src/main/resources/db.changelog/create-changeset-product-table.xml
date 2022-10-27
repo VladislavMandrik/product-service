@@ -188,4 +188,71 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="27-10-2022-14-16-add-columns-table-deliveries" author="author">
+        <addColumn tableName="deliveries" >
+            <column name="store_id"
+                    type="int">
+                <constraints nullable="false" foreignKeyName="fk_deliveries_stores"
+                             references="stores(id)"/>
+            </column>
+
+            <column name="created_at"
+                    type="Timestamp" defaultValue="now()">
+            </column>
+
+            <column name="updated_at"
+                    type="Timestamp" defaultValue="now()">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="27-10-2022-14-30-create-table-shopping-carts" author="author">
+        <createTable tableName="shopping_carts">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="buyers_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="store_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_shopping_carts_stores"
+                             references="stores(id)"/>
+            </column>
+
+            <column name="product_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="products_count" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="Timestamp" defaultValue="now()">
+            </column>
+
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="27-10-2022-15-30-create-table-products-shopping-carts" author="author">
+        <createTable tableName="products_shopping_carts">
+            <column name="product_id" type="int">
+                <constraints nullable="false" primaryKey="true" foreignKeyName="products_shopping_carts_products"
+                             references="products(id)"/>
+            </column>
+
+            <column name="products_count" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="shopping_cart_id" type="int">
+                <constraints nullable="false" primaryKey="true" foreignKeyName="products_shopping_carts_shopping_carts"
+                             references="shopping_carts(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
