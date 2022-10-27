@@ -136,6 +136,29 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="14-10-2022-15-15-create-table-stores" author="author">
+        <createTable tableName="stores">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="type_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_stores_store_types"
+                             references="store_types(id)"/>
+            </column>
+
+            <column name="created_at" type="Timestamp" defaultValue="now()">
+            </column>
+
+            <column name="updated_at" type="Timestamp" defaultValue="now()">
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="14-10-2022-15-15-create-table-deliveries" author="author">
         <createTable tableName="deliveries">
             <column autoIncrement="true" name="id" type="bigint">
@@ -163,34 +186,7 @@
                 <constraints nullable="false" foreignKeyName="fk_deliveries_providers"
                              references="providers(id)"/>
             </column>
-        </createTable>
-    </changeSet>
 
-    <changeSet id="14-10-2022-15-15-create-table-stores" author="author">
-        <createTable tableName="stores">
-            <column autoIncrement="true" name="id" type="bigint">
-                <constraints primaryKey="true"/>
-            </column>
-
-            <column name="name" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="type_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_stores_store_types"
-                             references="store_types(id)"/>
-            </column>
-
-            <column name="created_at" type="Timestamp" defaultValue="now()">
-            </column>
-
-            <column name="updated_at" type="Timestamp" defaultValue="now()">
-            </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="27-10-2022-14-16-add-columns-table-deliveries" author="author">
-        <addColumn tableName="deliveries" >
             <column name="store_id"
                     type="int">
                 <constraints nullable="false" foreignKeyName="fk_deliveries_stores"
@@ -204,7 +200,7 @@
             <column name="updated_at"
                     type="Timestamp" defaultValue="now()">
             </column>
-        </addColumn>
+        </createTable>
     </changeSet>
 
     <changeSet id="27-10-2022-14-30-create-table-shopping-carts" author="author">
@@ -214,19 +210,6 @@
             </column>
 
             <column name="buyers_name" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="store_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_shopping_carts_stores"
-                             references="stores(id)"/>
-            </column>
-
-            <column name="product_id" type="int">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="products_count" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
 
@@ -243,6 +226,11 @@
             <column name="product_id" type="int">
                 <constraints nullable="false" primaryKey="true" foreignKeyName="products_shopping_carts_products"
                              references="products(id)"/>
+            </column>
+
+            <column name="store_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_shopping_carts_stores"
+                             references="stores(id)"/>
             </column>
 
             <column name="products_count" type="varchar(100)">
