@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.PageSupport;
 import com.example.demo.model.ProductDTO;
+import com.example.demo.model.RequestFindProduct;
 import com.example.demo.model.ResponseProduct;
 import com.example.demo.service.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,18 @@ public class ProductControllerImpl implements ProductController {
                 .subscribeOn(Schedulers.boundedElastic());
 
     }
+
     @GetMapping("/{id}")
     public Mono<ResponseProduct> getProductById(@PathVariable(value = "id") Long id) {
         return productService.getById(id).log().subscribeOn(Schedulers.boundedElastic());
     }
+
+    @GetMapping("/find")
+    public Mono<PageSupport<ResponseProduct>> getProductByNameStartingWith(int page, int size,
+                                                                           @RequestBody RequestFindProduct req) {
+        return productService.getByNameStartingWith(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
+    }
+
 
     @PostMapping
     public Mono<ProductDTO> createOrUpdateProduct(@RequestBody ProductDTO productDTO) {

@@ -64,6 +64,29 @@ public class ProductServiceImpl implements ProductService {
                                 ));
     }
 
+    public Mono<PageSupport<ResponseProduct>> getByNameStartingWith(Pageable page, RequestFindProduct req) {
+        return productRepository.findByNameStartingWith(req.getName())
+                .map(productMapper::toDTO)
+                .publishOn(Schedulers.boundedElastic())
+                .map((ProductDTO productDTO) ->
+                        productMapper.toResponse
+                                (productDTO,
+                                        brandRepository.findById(productDTO.getBrandId())
+                                                .map(brandMapper::toDTO).block(),
+                                        categoryRepository.findById(productDTO.getCategoryId())
+                                                .map(categoryMapper::toDTO).block()
+                                ))
+                .collectList()
+                .map(list -> new PageSupport<>(list
+                        .stream()
+                        .skip(page.getPageNumber() * page.getPageSize())
+                        .limit(page.getPageSize())
+                        .collect(Collectors.toList()),
+                        page.getPageNumber(), page.getPageSize(), list.size()))
+                .switchIfEmpty(Mono.empty());
+    }
+
+
     public Mono<ProductDTO> addOrUpdateProduct(ProductDTO productDTO) {
         Product product = productMapper.fromDTO(productDTO);
         return productRepository.save(product)
