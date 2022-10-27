@@ -8,4 +8,5 @@
   <include file="create-changeset-product-table.xml" relativeToChangelogFile="true"/>
   <include file="insert-changeset-product-table.xml" relativeToChangelogFile="true"/>
   <include file="create-product-table.sql" relativeToChangelogFile="true"/>
+  <include file="insert-product-table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

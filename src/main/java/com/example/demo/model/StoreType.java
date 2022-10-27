@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 
 @Data
 @Table("store_types")
-@NoArgsConstructor
 @AllArgsConstructor
 public class StoreType {
     @Id

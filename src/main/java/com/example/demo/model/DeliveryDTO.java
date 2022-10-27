@@ -9,7 +9,7 @@ public class DeliveryDTO {
     private Long productId;
     private Timestamp deliveryDate;
     private Integer productCount;
-    private Double price;
+    private Integer price;
     private Long providerId;
     private Long storeId;
     private Timestamp createdAt;

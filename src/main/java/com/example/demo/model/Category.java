@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 
 @Data
 @Table("categories")
-@NoArgsConstructor
 @AllArgsConstructor
 public class Category {
     @Id

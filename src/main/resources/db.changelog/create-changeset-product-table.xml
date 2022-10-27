@@ -155,7 +155,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="price" type="double">
+            <column name="price" type="int">
                 <constraints nullable="false"/>
             </column>
 

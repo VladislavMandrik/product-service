@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 
 @Data
 @Table("deliveries")
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Delivery {
@@ -23,7 +22,7 @@ public class Delivery {
     private Long productId;
     private Timestamp deliveryDate;
     private Integer productCount;
-    private Double price;
+    private Integer price;
     private Long providerId;
     private Long storeId;
     private Timestamp createdAt;

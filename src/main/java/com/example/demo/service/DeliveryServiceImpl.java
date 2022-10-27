@@ -52,33 +52,28 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     public Mono<ResponseDelivery> getById(Long id) {
         return deliveryRepository.findById(id)
-                .map(deliveryMapper::toDTO)
-                .publishOn(Schedulers.boundedElastic())
-                .map((DeliveryDTO deliveryDTO) ->
-                        deliveryMapper.toResponse
-                                (deliveryDTO,
-                                        productRepository.findById(deliveryDTO.getProductId())
-                                                .map(productMapper::toDTO).block(),
-                                        providerRepository.findById(deliveryDTO.getProviderId())
-                                                .map(providerMapper::toDTO).block(),
-                                        storeRepository.findById(deliveryDTO.getStoreId())
-                                                .map(storeMapper::toDTO).block()
-                                ));
+                        .zipWhen(delivery -> productRepository.findById(delivery.getProductId()))
+                        .zipWhen(delivery -> providerRepository.findById(delivery.getT1().getProviderId()))
+                        .zipWhen(delivery -> storeRepository.findById(delivery.getT1().getT1().getStoreId()))
+                        .map(tuples -> deliveryMapper.toResponse(
+                                deliveryMapper.toDTO(tuples.getT1().getT1().getT1()),
+                                productMapper.toDTO(tuples.getT1().getT1().getT2()),
+                                providerMapper.toDTO(tuples.getT1().getT2()),
+                                storeMapper.toDTO(tuples.getT2())));
+
     }
 
     public Mono<ResponseRemains> getRemainsByStoreIdAndProductId(RequestRemains requestRemains) {
-        return deliveryRepository.findRemainsByStoreIdAndProductId(requestRemains.getStoreId(),
-                        requestRemains.getProductId())
-                .publishOn(Schedulers.boundedElastic())
-                .map(result -> ResponseRemains.builder()
-                        .storeDTO(storeRepository.findById(requestRemains.getStoreId())
-                                .map(storeMapper::toDTO).block())
-                        .productDTO(productRepository.findById(requestRemains.getProductId())
-                                .map(productMapper::toDTO).block())
-                        .productCount(result)
+        return Mono.zip(storeRepository.findById(requestRemains.getStoreId()),
+                        productRepository.findById(requestRemains.getProductId()),
+                        deliveryRepository.findRemainsByStoreIdAndProductId(requestRemains.getStoreId(),
+                                requestRemains.getProductId()))
+                .map(tuples -> ResponseRemains.builder()
+                        .storeDTO(storeMapper.toDTO(tuples.getT1()))
+                        .productDTO(productMapper.toDTO(tuples.getT2()))
+                        .productCount(tuples.getT3())
                         .build());
     }
-
 
     public Mono<DeliveryDTO> addOrUpdateDelivery(RequestDelivery requestDelivery) {
         DeliveryDTO deliveryDTO = requestDelivery.getDeliveryDTO();

@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 
 @Data
 @Table("products")
-@NoArgsConstructor
 @AllArgsConstructor
 public class Product {
     @Id

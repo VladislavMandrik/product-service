@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 
 @Data
 @Table("providers")
-@NoArgsConstructor
 @AllArgsConstructor
 public class Provider {
     @Id
