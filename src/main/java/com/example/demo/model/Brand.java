@@ -17,7 +17,7 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Country country_name;
+    private Long countryId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

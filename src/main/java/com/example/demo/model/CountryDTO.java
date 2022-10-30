@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Data
 public class CountryDTO {
     private Long id;
-    private String name;
+    private String countryName;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

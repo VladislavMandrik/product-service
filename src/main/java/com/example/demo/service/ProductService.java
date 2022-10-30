@@ -1,9 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.PageSupport;
-import com.example.demo.model.ProductDTO;
-import com.example.demo.model.RequestFindProduct;
-import com.example.demo.model.ResponseProduct;
+import com.example.demo.model.*;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Mono;
 
@@ -13,7 +10,13 @@ public interface ProductService {
 
     Mono<ResponseProduct> getById(Long id);
 
-    Mono<PageSupport<ResponseProduct>> getByNameStartingWith(Pageable pageable, RequestFindProduct req);
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getByNameStartingWith(Pageable pageable, RequestFindOrFilteredProduct req);
+
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByBrand(Pageable pageable, RequestFindOrFilteredProduct req);
+
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByCountry(Pageable pageable, RequestFindOrFilteredProduct req);
+
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByPrice(Pageable pageable, RequestFilteredByPriceProduct req);
 
     Mono<ProductDTO> addOrUpdateProduct(ProductDTO productDTO);
 

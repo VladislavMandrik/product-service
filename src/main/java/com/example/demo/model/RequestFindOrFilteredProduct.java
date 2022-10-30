@@ -3,7 +3,7 @@ package com.example.demo.model;
 import lombok.Data;
 
 @Data
-public class RequestFindProduct {
+public class RequestFindOrFilteredProduct {
     private String name;
 }
 

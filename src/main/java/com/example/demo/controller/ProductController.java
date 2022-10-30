@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.PageSupport;
-import com.example.demo.model.ProductDTO;
-import com.example.demo.model.RequestFindProduct;
-import com.example.demo.model.ResponseProduct;
+import com.example.demo.model.*;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -19,9 +16,21 @@ public interface ProductController {
 
     Mono<ResponseProduct> getProductById(Long id);
 
-    Mono<PageSupport<ResponseProduct>> getProductByNameStartingWith(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
-                                                       @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
-                                                       RequestFindProduct req);
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getProductByNameStartingWith(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
+                                                                                  @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
+                                                                                  RequestFindOrFilteredProduct req);
+
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByBrand(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
+                                                                        @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
+                                                                        RequestFindOrFilteredProduct req);
+
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByCountry(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
+                                                                        @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
+                                                                        RequestFindOrFilteredProduct req);
+
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByPrice(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
+                                                                          @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
+                                                                          RequestFilteredByPriceProduct req);
 
     Mono<ProductDTO> createOrUpdateProduct(ProductDTO productDTO);
 

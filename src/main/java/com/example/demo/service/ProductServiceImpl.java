@@ -8,6 +8,7 @@ import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.*;
 import com.example.demo.repository.BrandRepository;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.CountryRepository;
 import com.example.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
+
+    private final CountryRepository countryRepository;
     private final ProductMapper productMapper;
     private final BrandMapper brandMapper;
     private final CategoryMapper categoryMapper;
@@ -64,18 +67,8 @@ public class ProductServiceImpl implements ProductService {
                                 ));
     }
 
-    public Mono<PageSupport<ResponseProduct>> getByNameStartingWith(Pageable page, RequestFindProduct req) {
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getByNameStartingWith(Pageable page, RequestFindOrFilteredProduct req) {
         return productRepository.findByNameStartingWith(req.getName())
-                .map(productMapper::toDTO)
-                .publishOn(Schedulers.boundedElastic())
-                .map((ProductDTO productDTO) ->
-                        productMapper.toResponse
-                                (productDTO,
-                                        brandRepository.findById(productDTO.getBrandId())
-                                                .map(brandMapper::toDTO).block(),
-                                        categoryRepository.findById(productDTO.getCategoryId())
-                                                .map(categoryMapper::toDTO).block()
-                                ))
                 .collectList()
                 .map(list -> new PageSupport<>(list
                         .stream()
@@ -86,6 +79,43 @@ public class ProductServiceImpl implements ProductService {
                 .switchIfEmpty(Mono.empty());
     }
 
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByBrand(Pageable page, RequestFindOrFilteredProduct req) {
+        return brandRepository.findByName(req.getName())
+                .flatMap(brand -> productRepository.getFilteredByBrand(brand.getId())
+                        .collectList()
+                        .map(list -> new PageSupport<>(list
+                                .stream()
+                                .skip(page.getPageNumber() * page.getPageSize())
+                                .limit(page.getPageSize())
+                                .collect(Collectors.toList()),
+                                page.getPageNumber(), page.getPageSize(), list.size()))
+                        .switchIfEmpty(Mono.empty()));
+    }
+
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByCountry(Pageable page, RequestFindOrFilteredProduct req) {
+        return countryRepository.findByCountryName(req.getName())
+                .flatMap(country -> productRepository.getFilteredByCountry(country.getId())
+                        .collectList()
+                        .map(list -> new PageSupport<>(list
+                                .stream()
+                                .skip(page.getPageNumber() * page.getPageSize())
+                                .limit(page.getPageSize())
+                                .collect(Collectors.toList()),
+                                page.getPageNumber(), page.getPageSize(), list.size()))
+                        .switchIfEmpty(Mono.empty()));
+    }
+
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByPrice(Pageable page, RequestFilteredByPriceProduct req) {
+        return productRepository.getFilteredByPrice(req.getPrice())
+                .collectList()
+                .map(list -> new PageSupport<>(list
+                        .stream()
+                        .skip(page.getPageNumber() * page.getPageSize())
+                        .limit(page.getPageSize())
+                        .collect(Collectors.toList()),
+                        page.getPageNumber(), page.getPageSize(), list.size()))
+                .switchIfEmpty(Mono.empty());
+    }
 
     public Mono<ProductDTO> addOrUpdateProduct(ProductDTO productDTO) {
         Product product = productMapper.fromDTO(productDTO);
