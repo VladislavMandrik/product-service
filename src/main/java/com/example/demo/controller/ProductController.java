@@ -20,17 +20,9 @@ public interface ProductController {
                                                                                   @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
                                                                                   RequestFindOrFilteredProduct req);
 
-    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByBrand(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
-                                                                        @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
-                                                                        RequestFindOrFilteredProduct req);
-
-    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByCountry(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
-                                                                        @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
-                                                                        RequestFindOrFilteredProduct req);
-
-    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByPrice(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
-                                                                          @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
-                                                                          RequestFilteredByPriceProduct req);
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
+                                                                 @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
+                                                                 RequestFindOrFilteredProduct req);
 
     Mono<ProductDTO> createOrUpdateProduct(ProductDTO productDTO);
 

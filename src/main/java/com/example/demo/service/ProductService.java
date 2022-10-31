@@ -12,11 +12,7 @@ public interface ProductService {
 
     Mono<PageSupport<ResponseFindOrFilteredProduct>> getByNameStartingWith(Pageable pageable, RequestFindOrFilteredProduct req);
 
-    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByBrand(Pageable pageable, RequestFindOrFilteredProduct req);
-
-    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByCountry(Pageable pageable, RequestFindOrFilteredProduct req);
-
-    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByPrice(Pageable pageable, RequestFilteredByPriceProduct req);
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(Pageable pageable, RequestFindOrFilteredProduct req);
 
     Mono<ProductDTO> addOrUpdateProduct(ProductDTO productDTO);
 

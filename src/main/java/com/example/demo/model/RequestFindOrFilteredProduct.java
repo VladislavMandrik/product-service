@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 public class RequestFindOrFilteredProduct {
-    private String name;
+    private String findName;
+    private String filterBrand;
+    private String filterCountry;
+    private Double PriceFrom;
+    private Double PriceTo;
 }
 

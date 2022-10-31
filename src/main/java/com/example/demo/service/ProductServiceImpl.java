@@ -25,7 +25,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
-
     private final CountryRepository countryRepository;
     private final ProductMapper productMapper;
     private final BrandMapper brandMapper;
@@ -68,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Mono<PageSupport<ResponseFindOrFilteredProduct>> getByNameStartingWith(Pageable page, RequestFindOrFilteredProduct req) {
-        return productRepository.findByNameStartingWith(req.getName())
+        return productRepository.findAllByNameStartsWith(req.getFindName())
                 .collectList()
                 .map(list -> new PageSupport<>(list
                         .stream()
@@ -79,42 +78,30 @@ public class ProductServiceImpl implements ProductService {
                 .switchIfEmpty(Mono.empty());
     }
 
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByBrand(Pageable page, RequestFindOrFilteredProduct req) {
-        return brandRepository.findByName(req.getName())
-                .flatMap(brand -> productRepository.getFilteredByBrand(brand.getId())
-                        .collectList()
-                        .map(list -> new PageSupport<>(list
-                                .stream()
-                                .skip(page.getPageNumber() * page.getPageSize())
-                                .limit(page.getPageSize())
-                                .collect(Collectors.toList()),
-                                page.getPageNumber(), page.getPageSize(), list.size()))
-                        .switchIfEmpty(Mono.empty()));
-    }
-
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByCountry(Pageable page, RequestFindOrFilteredProduct req) {
-        return countryRepository.findByCountryName(req.getName())
-                .flatMap(country -> productRepository.getFilteredByCountry(country.getId())
-                        .collectList()
-                        .map(list -> new PageSupport<>(list
-                                .stream()
-                                .skip(page.getPageNumber() * page.getPageSize())
-                                .limit(page.getPageSize())
-                                .collect(Collectors.toList()),
-                                page.getPageNumber(), page.getPageSize(), list.size()))
-                        .switchIfEmpty(Mono.empty()));
-    }
-
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByPrice(Pageable page, RequestFilteredByPriceProduct req) {
-        return productRepository.getFilteredByPrice(req.getPrice())
-                .collectList()
-                .map(list -> new PageSupport<>(list
-                        .stream()
-                        .skip(page.getPageNumber() * page.getPageSize())
-                        .limit(page.getPageSize())
-                        .collect(Collectors.toList()),
-                        page.getPageNumber(), page.getPageSize(), list.size()))
-                .switchIfEmpty(Mono.empty());
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(Pageable page, RequestFindOrFilteredProduct req) {
+        if (req.getFilterBrand() != null) {
+            return brandRepository.findByName(req.getFilterBrand())
+                    .flatMap(brand -> productRepository.getFilterByBrand(brand.getId(), req.getPriceFrom(), req.getPriceTo())
+                            .collectList()
+                            .map(list -> new PageSupport<>(list
+                                    .stream()
+                                    .skip(page.getPageNumber() * page.getPageSize())
+                                    .limit(page.getPageSize())
+                                    .collect(Collectors.toList()),
+                                    page.getPageNumber(), page.getPageSize(), list.size()))
+                    );
+        } else {
+            return countryRepository.findByCountryName(req.getFilterCountry())
+                    .flatMap(country -> productRepository.getFilterByCountry(country.getId(), req.getPriceFrom(), req.getPriceTo())
+                            .collectList()
+                            .map(list -> new PageSupport<>(list
+                                    .stream()
+                                    .skip(page.getPageNumber() * page.getPageSize())
+                                    .limit(page.getPageSize())
+                                    .collect(Collectors.toList()),
+                                    page.getPageNumber(), page.getPageSize(), list.size()))
+                    );
+        }
     }
 
     public Mono<ProductDTO> addOrUpdateProduct(ProductDTO productDTO) {

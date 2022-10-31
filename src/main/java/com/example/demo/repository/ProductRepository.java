@@ -12,16 +12,18 @@ import reactor.core.publisher.Mono;
 public interface ProductRepository extends ReactiveCrudRepository<Product, Long> {
     Mono<Product> findByName(String name);
 
-    @Query(value = "select id, name from products where name like concat('%', :name, '%')")
-    Flux<ResponseFindOrFilteredProduct> findByNameStartingWith(String name);
+    Flux<ResponseFindOrFilteredProduct> findAllByNameStartsWith(String name);
 
-    @Query(value = "select id, name from products where brand_id = :id")
-    Flux<ResponseFindOrFilteredProduct> getFilteredByBrand(Long id);
+    @Query(value = "select products.id, products.name, brand_id, country_id, price from products\n" +
+            "join brands on brand_id = brands.id join countries on country_id\n" +
+            "= countries.id join deliveries on products.id = deliveries.product_id\n" +
+            "where price between :priceFrom and :priceTo and brand_id = :brandId")
+    Flux<ResponseFindOrFilteredProduct> getFilterByBrand(Long brandId, Double priceFrom, Double priceTo);
 
-    @Query(value = "select id, name from filter_by_countries where country_id = :id")
-    Flux<ResponseFindOrFilteredProduct> getFilteredByCountry(Long id);
-
-    @Query(value = "select product_id AS id, name from filter_by_prices where price = :price")
-    Flux<ResponseFindOrFilteredProduct> getFilteredByPrice(Double price);
+    @Query(value = "select products.id, products.name, brand_id, country_id, price from products\n" +
+            "join brands on brand_id = brands.id join countries on country_id\n" +
+            "= countries.id join deliveries on products.id = deliveries.product_id\n" +
+            "where price between :priceFrom and :priceTo and country_id = :countryId")
+    Flux<ResponseFindOrFilteredProduct> getFilterByCountry(Long countryId, Double priceFrom, Double priceTo);
 }
 

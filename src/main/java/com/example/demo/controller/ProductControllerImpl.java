@@ -32,19 +32,9 @@ public class ProductControllerImpl implements ProductController {
         return productService.getByNameStartingWith(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
     }
 
-    @GetMapping("/filter-by-brand")
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByBrand(int page, int size, @RequestBody RequestFindOrFilteredProduct req) {
-        return productService.getFilteredByBrand(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
-    }
-
-    @GetMapping("/filter-by-country")
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByCountry(int page, int size, @RequestBody RequestFindOrFilteredProduct req) {
-        return productService.getFilteredByCountry(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
-    }
-
-    @GetMapping("/filter-by-price")
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilteredByPrice(int page, int size, @RequestBody RequestFilteredByPriceProduct req) {
-        return productService.getFilteredByPrice(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
+    @GetMapping("/filter")
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(int page, int size, @RequestBody RequestFindOrFilteredProduct req) {
+        return productService.getFilter(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     @PostMapping
