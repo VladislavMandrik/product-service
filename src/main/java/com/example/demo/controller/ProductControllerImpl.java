@@ -37,6 +37,11 @@ public class ProductControllerImpl implements ProductController {
         return productService.getFilter(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
     }
 
+    @GetMapping("/category/{id}")
+    public Mono<PageSupport<ResponseProductOrCategory>> getByCategory(int page, int size, @PathVariable(value = "id") Long categoryId) {
+        return productService.getByCategory(PageRequest.of(page, size), categoryId).log().subscribeOn(Schedulers.boundedElastic());
+    }
+
     @PostMapping
     public Mono<ProductDTO> createOrUpdateProduct(@RequestBody ProductDTO productDTO) {
         return productService.addOrUpdateProduct(productDTO).log().subscribeOn(Schedulers.boundedElastic());

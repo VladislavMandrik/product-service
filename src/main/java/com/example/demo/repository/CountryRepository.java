@@ -7,6 +7,5 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface CountryRepository extends ReactiveCrudRepository<Country, Long> {
-
     Mono<Country> findByCountryName(String name);
 }

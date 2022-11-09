@@ -14,6 +14,8 @@ public interface ProductService {
 
     Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(Pageable pageable, RequestFindOrFilteredProduct req);
 
+    Mono<PageSupport<ResponseProductOrCategory>> getByCategory(Pageable pageable, Long categoryId);
+
     Mono<ProductDTO> addOrUpdateProduct(ProductDTO productDTO);
 
     Mono<Void> delete(Long id);

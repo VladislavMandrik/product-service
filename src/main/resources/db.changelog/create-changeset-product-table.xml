@@ -244,20 +244,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="30-10-2022-13-50-create-view-filter-by-countries" author="author">
-
-        <createView viewName="filter_by_countries">select products.id, products.name, brand_id, country_id
-                                                   from products
-                                                            join brands on brand_id = brands.id
-                                                            join countries on country_id = countries.id</createView>
-
-    </changeSet>
-
-    <changeSet id="30-10-2022-19-24-create-view-filter-by-prices" author="author">
-
-        <createView viewName="filter_by_prices">select deliveries.product_id, products.name, deliveries.price
-                                                from deliveries
-                                                         join products on product_id = products.id</createView>
-
+    <changeSet author="author" id="08-11-2022-23-11-create-function-check-subcategory">
+        <createProcedure>create function check_subcategory(check_id bigint)
+            returns boolean
+            language sql as
+$$
+WITH cur AS (SELECT categories.id FROM categories where categories.parent_id = $1)
+        SELECT EXISTS(SELECT TRUE FROM cur);
+        $$;</createProcedure>
     </changeSet>
 </databaseChangeLog>

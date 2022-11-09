@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Product;
 import com.example.demo.model.ResponseFindOrFilteredProduct;
+import com.example.demo.model.ResponseProductOrCategory;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -25,5 +26,11 @@ public interface ProductRepository extends ReactiveCrudRepository<Product, Long>
             "= countries.id join deliveries on products.id = deliveries.product_id\n" +
             "where price between :priceFrom and :priceTo and country_id = :countryId")
     Flux<ResponseFindOrFilteredProduct> getFilterByCountry(Long countryId, Double priceFrom, Double priceTo);
+
+    @Query(value = "select products.id, products.name from products where category_id = :categoryId")
+    Flux<ResponseProductOrCategory> findAllByCategoryId(Long categoryId);
+
+    @Query(value = "select * from check_subcategory(:categoryId)")
+    Mono<Boolean> checkResult(Long categoryId);
 }
 

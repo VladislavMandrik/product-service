@@ -13,6 +13,7 @@ import com.example.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -102,6 +103,25 @@ public class ProductServiceImpl implements ProductService {
                                     page.getPageNumber(), page.getPageSize(), list.size()))
                     );
         }
+    }
+
+    public Mono<PageSupport<ResponseProductOrCategory>> getByCategory(Pageable page, Long categoryId) {
+        return productRepository.checkResult(categoryId)
+                .flatMap(result -> {
+                    if (!result) {
+                        return productRepository.findAllByCategoryId(categoryId)
+                                .collectList();
+                    } else {
+                        return categoryRepository.findAllByParentId(categoryId)
+                                .collectList();
+                    }
+                })
+                .map(list -> new PageSupport<>(list
+                        .stream()
+                        .skip(page.getPageNumber() * page.getPageSize())
+                        .limit(page.getPageSize())
+                        .collect(Collectors.toList()),
+                        page.getPageNumber(), page.getPageSize(), list.size()));
     }
 
     public Mono<ProductDTO> addOrUpdateProduct(ProductDTO productDTO) {
