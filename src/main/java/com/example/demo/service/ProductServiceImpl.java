@@ -13,7 +13,6 @@ import com.example.demo.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -79,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
                 .switchIfEmpty(Mono.empty());
     }
 
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(Pageable page, RequestFindOrFilteredProduct req) {
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getByFilter(Pageable page, RequestFindOrFilteredProduct req) {
         if (req.getFilterBrand() != null) {
             return brandRepository.findByName(req.getFilterBrand())
                     .flatMap(brand -> productRepository.getFilterByBrand(brand.getId(), req.getPriceFrom(), req.getPriceTo())
@@ -106,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Mono<PageSupport<ResponseProductOrCategory>> getByCategory(Pageable page, Long categoryId) {
-        return productRepository.checkResult(categoryId)
+        return productRepository.checkCategoryOnSubcategory(categoryId)
                 .flatMap(result -> {
                     if (!result) {
                         return productRepository.findAllByCategoryId(categoryId)

@@ -12,7 +12,7 @@ public interface ProductService {
 
     Mono<PageSupport<ResponseFindOrFilteredProduct>> getByNameStartingWith(Pageable pageable, RequestFindOrFilteredProduct req);
 
-    Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(Pageable pageable, RequestFindOrFilteredProduct req);
+    Mono<PageSupport<ResponseFindOrFilteredProduct>> getByFilter(Pageable pageable, RequestFindOrFilteredProduct req);
 
     Mono<PageSupport<ResponseProductOrCategory>> getByCategory(Pageable pageable, Long categoryId);
 

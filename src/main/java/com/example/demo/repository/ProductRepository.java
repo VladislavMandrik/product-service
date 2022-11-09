@@ -31,6 +31,6 @@ public interface ProductRepository extends ReactiveCrudRepository<Product, Long>
     Flux<ResponseProductOrCategory> findAllByCategoryId(Long categoryId);
 
     @Query(value = "select * from check_subcategory(:categoryId)")
-    Mono<Boolean> checkResult(Long categoryId);
+    Mono<Boolean> checkCategoryOnSubcategory(Long categoryId);
 }
 

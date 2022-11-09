@@ -33,12 +33,12 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @GetMapping("/filter")
-    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getFilter(int page, int size, @RequestBody RequestFindOrFilteredProduct req) {
-        return productService.getFilter(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
+    public Mono<PageSupport<ResponseFindOrFilteredProduct>> getProductByFilter(int page, int size, @RequestBody RequestFindOrFilteredProduct req) {
+        return productService.getByFilter(PageRequest.of(page, size), req).log().subscribeOn(Schedulers.boundedElastic());
     }
 
     @GetMapping("/category/{id}")
-    public Mono<PageSupport<ResponseProductOrCategory>> getByCategory(int page, int size, @PathVariable(value = "id") Long categoryId) {
+    public Mono<PageSupport<ResponseProductOrCategory>> getProductByCategoryOrCategoryTree(int page, int size, @PathVariable(value = "id") Long categoryId) {
         return productService.getByCategory(PageRequest.of(page, size), categoryId).log().subscribeOn(Schedulers.boundedElastic());
     }
 
