@@ -24,9 +24,9 @@ public interface ProductController {
                                                                         @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
                                                                         RequestFindOrFilteredProduct req);
 
-    Mono<PageSupport<ResponseProductOrCategory>> getProductByCategoryOrCategoryTree(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
-                                                                                    @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
-                                                                                    Long categoryId);
+    Mono<PageSupport<ResponseProductOrCategory>> getProductOrCategory(@RequestParam(name = "page", defaultValue = FIRST_PAGE_NUM) int page,
+                                                                      @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size,
+                                                                      Long categoryId);
 
     Mono<ProductDTO> createOrUpdateProduct(ProductDTO productDTO);
 
